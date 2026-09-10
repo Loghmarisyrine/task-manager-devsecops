@@ -1,0 +1,16 @@
+{% extends "tasks/base.html" %}
+{% block content %}
+    <a class="button" href="{% url 'task_create' %}">+ Nouvelle tâche</a>
+    <div style="margin-top: 20px;">
+        {% for task in tasks %}
+        <div class="task priority-{{ task.priority }} {% if task.is_done %}done{% endif %}">
+            <strong>{{ task.title }}</strong> — {{ task.get_priority_display }}
+            <p>{{ task.description }}</p>
+            <a href="{% url 'task_update' task.pk %}">Modifier</a> |
+            <a href="{% url 'task_delete' task.pk %}">Supprimer</a>
+        </div>
+        {% empty %}
+        <p>Aucune tâche pour l'instant.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: 40px auto; background: #f5f6fa; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .task { background: white; padding: 15px; margin-bottom: 10px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .task.done { opacity: 0.6; text-decoration: line-through; }
+        .priority-high { border-left: 4px solid #e74c3c; }
+        .priority-medium { border-left: 4px solid #f39c12; }
+        .priority-low { border-left: 4px solid #2ecc71; }
+        .messages { list-style: none; padding: 0; }
+        .messages li { background: #d4edda; padding: 8px; border-radius: 4px; margin-bottom: 10px; }
+        a.button, button { display: inline-block; padding: 6px 12px; background: #2980b9; color: white; text-decoration: none; border: none; border-radius: 4px; cursor: pointer; }
+        form { margin-top: 10px; }
+        input, textarea, select { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📋 Task Manager</h1>
+        {% if user.is_authenticated %}
+            <span>{{ user.username }} — <a href="{% url 'logout' %}">Déconnexion</a></span>
+        {% endif %}
+    </header>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}<li>{{ message }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,9 @@
+{% extends "tasks/base.html" %}
+{% block content %}
+    <h2>Supprimer "{{ task.title }}" ?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmer la suppression</button>
+    </form>
+    <a href="{% url 'task_list' %}">← Annuler</a>
+{% endblock %}
