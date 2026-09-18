@@ -16,11 +16,12 @@ class TaskForm(forms.ModelForm):
         fields = ["title", "description", "priority", "is_done"]
 
 
+@require_http_methods(["GET"])
 def health(request):
     """Endpoint simple pour les sondes (blackbox_exporter, load balancer, etc.)"""
     return JsonResponse({"status": "ok"})
 
-
+@require_http_methods(["GET", "POST"])
 def signup(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
