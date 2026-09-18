@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib import messages
 from django import forms
+from django.views.decorators.http import require_http_methods
 
 from .models import Task
 
@@ -39,6 +40,7 @@ def task_list(request):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def task_create(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
@@ -54,6 +56,7 @@ def task_create(request):
 
 
 @login_required
+@require_http_methods(["GET", "POST"])
 def task_update(request, pk):
     task = get_object_or_404(Task, pk=pk, owner=request.user)
     if request.method == "POST":
